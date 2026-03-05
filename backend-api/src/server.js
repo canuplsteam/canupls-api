@@ -293,11 +293,14 @@ app.post("/v1/location/update", authBySessionToken, async (req, res) => {
     }
 });
 
-app.get("/v1/profile", authBySessionToken, async (req, res) => {
+const profileHandler = async (req, res) => {
     return res.status(200).json(ok({
         user_info: profileResponseFromRow(req.userRow)
     }));
-});
+};
+
+app.get("/v1/profile", authBySessionToken, profileHandler);
+app.post("/v1/profile", authBySessionToken, profileHandler);
 
 app.post("/v1/profile/update", authBySessionToken, async (req, res) => {
     try {
